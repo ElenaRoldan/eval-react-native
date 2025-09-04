@@ -2,14 +2,11 @@ import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import TextInputController from "../../components/formElements/textInputController";
 import { Controller, useForm } from "react-hook-form";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SelecteurInput from "../../components/formElements/selecteurPicker";
 import SelecteurDanger from "../../components/formElements/selecteurPicker";
 import Bouton from "../../components/formElements/bouton";
-import { useRouter } from "expo-router";
-
 
 export default function AjouterObstacleScreen(){
-    const router = useRouter()
+
 
     const {
         control, 
@@ -17,7 +14,6 @@ export default function AjouterObstacleScreen(){
         handleSubmit, 
         formState : {errors}
     } = useForm();
-
 
         const storeData = async (value) => {
             try {
@@ -27,7 +23,6 @@ export default function AjouterObstacleScreen(){
                 obstacles.push(value);
                 
                 await AsyncStorage.setItem('ajout-obstacles', JSON.stringify(obstacles));
-                router.back();
             } catch (e) {
                 console.log(e);
             }
@@ -37,10 +32,7 @@ export default function AjouterObstacleScreen(){
             console.log("Données du formulaire:", data)
             await storeData(data)
             alert("Obstacle enregistré avec succès !! Merci ")
-
-            
         }
-
 
     return (
         <SafeAreaView>
