@@ -9,14 +9,11 @@ export default function Bouton({
     action
 } : any){
 
-
     return(
-
         <Pressable onPress={action} style={[{ backgroundColor: color }, styles.bouton]}>
             <Text style={{color: textColor ? textColor : "white", fontSize: fontSize ? fontSize : 15}}>{label}</Text>
         </Pressable>
     )
-
 }
 
 const styles = StyleSheet.create({

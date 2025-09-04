@@ -3,19 +3,16 @@ import ContactCard from "../cardContact";
 
 export default function ContactScreen(){
 
-
     const contactUtile = [
         { id: 1, nom: "MARC", prenom: "Julien", poste: "Responsable transport", numero: "07 50 05 05 05" },
         { id: 2, nom: "GOLFO", prenom: "Juan", poste: "Responsable logistique", numero: "07 60 05 05 05" },
         { id: 3, nom: "PARCO", prenom: "Paul", poste: "Responsable d'équipe", numero: "07 70 05 05 05" },
         { id: 4, nom: "POLO", prenom: "Marc", poste: "Mécanicien", numero: "07 90 05 05 05" },
         { id: 5, nom: "ARNAUD", prenom: "Marie", poste: "Responsable client", numero: "07 20 05 05 05" }
-
     ]
 
     return ( 
-
-        <SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
             <View style={styles.conteneur}>
                 <Text style={styles.titrePage}>
                     Contacts utiles
@@ -34,9 +31,6 @@ export default function ContactScreen(){
                         </View>
                     }
                 />
-
-
-
             </View>
         </SafeAreaView>
     )

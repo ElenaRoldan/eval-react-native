@@ -1,21 +1,46 @@
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import TextInputController from "../formElements/textInputController";
+import TextInputController from "../../components/formElements/textInputController";
 import { Controller, useForm } from "react-hook-form";
-import SelecteurInput from "../formElements/selecteurPicker";
-import SelecteurDanger from "../formElements/selecteurPicker";
-import Bouton from "../formElements/bouton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SelecteurInput from "../../components/formElements/selecteurPicker";
+import SelecteurDanger from "../../components/formElements/selecteurPicker";
+import Bouton from "../../components/formElements/bouton";
+import { useRouter } from "expo-router";
 
 
 export default function AjouterObstacleScreen(){
+    const router = useRouter()
 
     const {
         control, 
+        getValues,
         handleSubmit, 
-        formState : {errors},
-        getValues
-    } = useForm()
+        formState : {errors}
+    } = useForm();
 
-    const enregistrer = () => console.log(getValues());
+
+        const storeData = async (value) => {
+            try {
+                const existing = await AsyncStorage.getItem('ajout-obstacles');
+                const obstacles = existing ? JSON.parse(existing) : [];
+                
+                obstacles.push(value);
+                
+                await AsyncStorage.setItem('ajout-obstacles', JSON.stringify(obstacles));
+                router.back();
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        const enregistrer = async (data) => {
+            console.log("Données du formulaire:", data)
+            await storeData(data)
+            alert("Obstacle enregistré avec succès !! Merci ")
+
+            
+        }
+
 
     return (
         <SafeAreaView>
@@ -52,6 +77,13 @@ export default function AjouterObstacleScreen(){
                     errors={errors}
                     placeholder="Ex: 20/08/2025 "
                 />
+                <TextInputController
+                    label="Lieu"
+                    control={control}
+                    name="lieu"
+                    errors={errors}
+                    placeholder="Ex: Metz "
+                />
                 <Controller
                     control={control}
                     name="niveauDanger"
@@ -61,7 +93,7 @@ export default function AjouterObstacleScreen(){
                     )}
                 />                
                 <Bouton 
-                    action={enregistrer}
+                    action={handleSubmit(enregistrer)}
                     label="Enregistrer" 
                     color="#4a65ed" 
                 />
@@ -70,7 +102,6 @@ export default function AjouterObstacleScreen(){
         </SafeAreaView>
     )
 }
-
 
 const styles = StyleSheet.create({
 

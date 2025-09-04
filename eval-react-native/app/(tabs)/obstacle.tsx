@@ -1,21 +1,45 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import AjouterObstacleScreen from "../obstacles/ajouterObstacle";
-import Bouton from "../formElements/bouton";
-import { useRouter } from "expo-router";
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import Bouton from "../../components/formElements/bouton";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useEffect, useState } from "react";
+import CardObstacle from "../cardObstacle";
 
 export default function ObstacleScreen(){
 
     const router = useRouter()
+    const [obstacle, setObstacle] = useState([])
 
     const ajouter = () => {
-        router.push("/obstacles/ajouterObstacle");
+        router.push("/ajouterObstacle");
     }
 
+    const getData = async () => {
+        try {
+            const data = await AsyncStorage.getItem('ajout-obstacles')
+            console.log(data );
+            
+            setObstacle(data ? JSON.parse(data) : [])
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    useFocusEffect( 
+        useCallback(() => {
+            getData()
+        }, [])
+    )
+
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
             <View style={styles.conteneur}>
                 <Text style={styles.titrePage}>
-                    Application Des Transports
+                    Obstacles
                 </Text>
                 <Text style={styles.text} >
                     Bienvenue dans l espace des obstacles. 
@@ -29,6 +53,14 @@ export default function ObstacleScreen(){
                     action={ajouter}
                 />
             </View>
+                <FlatList
+                    data={obstacle}
+                    renderItem={({item}) => 
+                        <View key={item.titre}>
+                            <CardObstacle obstacle={item} />
+                        </View>
+                    }
+               />
         </SafeAreaView>
     )
 }

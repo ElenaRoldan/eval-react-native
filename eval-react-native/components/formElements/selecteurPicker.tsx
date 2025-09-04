@@ -6,14 +6,12 @@ export default function SelecteurDanger({
     onChange
 } : any){
 
-
     return (
-
         <View>
             <Text>
                 Choisir le niveau de danger (faire défilé)
             </Text>
-           <Picker
+            <Picker
                 selectedValue={value}
                 onValueChange={onChange}
                 style={{marginTop: -30}}
@@ -22,14 +20,10 @@ export default function SelecteurDanger({
                     color: 'blue'
                 }}
             >
-    <Picker.Item label="Faible" value="faible" />
-    <Picker.Item label="Moyen" value="moyen" />
-    <Picker.Item label="Élevé" value="eleve" />
-</Picker>
-
+                <Picker.Item label="Faible" value="faible" />
+                <Picker.Item label="Moyen" value="moyen" />
+                <Picker.Item label="Élevé" value="eleve" />
+            </Picker>
         </View>
     )
-
-
-
 }

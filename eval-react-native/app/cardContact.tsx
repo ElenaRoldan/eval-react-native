@@ -11,10 +11,7 @@ export default function ContactCard({ contact }: ContactCardProps) {
                 <Text>Prénom : {contact.prenom}</Text>
                 <Text>Poste : {contact.poste}</Text>
                 <Text>Tél. : {contact.numero}</Text>
-
             </View>
-
-
         </View>
     )
 }

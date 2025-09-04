@@ -1,7 +1,6 @@
 import { Controller } from "react-hook-form";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
-
 export default function TextInputController({
     label, 
     control, 
@@ -31,19 +30,16 @@ export default function TextInputController({
                         
                     )}
                 >
-
                 </Controller>
             </View>
             <Text>
                 {errors[name]?.message}
-
             </Text>
         </>
     )
 }
 
 const styles = StyleSheet.create({
-
     conteneur : {
     },
     textInput : {
